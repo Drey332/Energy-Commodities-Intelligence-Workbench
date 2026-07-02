@@ -1,204 +1,222 @@
 # Africa Energy & Commodities Intelligence Workbench
 
-A public-data intelligence workbench for monitoring African energy, commodity,
-finance, and risk signals from live news, institutional reports, uploaded
-documents, and structured datasets.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![Public Data](https://img.shields.io/badge/Public%20Data-Monitoring-green)
+![SQLite](https://img.shields.io/badge/Storage-SQLite-lightgrey)
+![Tests](https://img.shields.io/badge/Tests-unittest-blueviolet)
 
-This project helps turn scattered information - news articles, reports,
-datasets, and institutional documents - into structured monitoring signals,
-clustered developments, evidence-backed Q&A, dashboards, review queues, and
-analyst-style briefs.
+**Python | Streamlit | Public Data | Intelligence Workbench | Africa |
+Energy + Commodities | Document Intelligence | Monitoring Signals | Event
+Clustering**
+
+Repository target:
+<https://github.com/Drey332/Energy-Commodities-Intelligence-Workbench>
+
+## Summary
+
+Africa Energy & Commodities Intelligence Workbench is a Streamlit-based
+public-data intelligence platform for monitoring African energy, commodity,
+finance, and risk developments. It combines live/keyless public sources,
+optional API-key sources, institutional reports, uploaded documents, structured
+datasets, normalized monitoring signals, clustered developments,
+evidence-backed Q&A, review queues, and exportable intelligence briefs.
+
+The main result is a working local app that converts scattered public
+information into analyst-readable monitoring signals, clusters related
+developments, and generates evidence-backed briefs with source transparency. It
+runs with keyless public sources and fallback sample data, while optional API
+keys can expand live coverage.
 
 ## Table Of Contents
 
 - [Why This Project Matters](#why-this-project-matters)
+- [Project Snapshot](#project-snapshot)
 - [Core Problem](#core-problem)
 - [What The Platform Does](#what-the-platform-does)
+- [What I Built](#what-i-built)
+- [Technology Stack](#technology-stack)
+- [Data And Source Connectors](#data-and-source-connectors)
+- [Core Files](#core-files)
+- [Analyst Workflow](#analyst-workflow)
 - [Key Features](#key-features)
 - [Example Use Cases](#example-use-cases)
-- [Tech Stack](#tech-stack)
-- [Data And Source Connectors](#data-and-source-connectors)
-- [Architecture](#architecture)
-- [Analyst Workflow](#analyst-workflow)
-- [Setup](#setup)
+- [Results And Outputs](#results-and-outputs)
+- [How To Run](#how-to-run)
 - [Environment Variables](#environment-variables)
-- [Running Tests](#running-tests)
-- [Sample Outputs](#sample-outputs)
-- [Why This Demonstrates Data And Knowledge Skills](#why-this-demonstrates-data-and-knowledge-skills)
-- [Data Ethics And Security](#data-ethics-and-security)
-- [Limitations](#limitations)
-- [Roadmap](#roadmap)
+- [Tests](#tests)
+- [Screenshots](#screenshots)
+- [Quality, Safety, And Review Design](#quality-safety-and-review-design)
+- [Limitations And Next Steps](#limitations-and-next-steps)
+- [License And Reuse](#license-and-reuse)
+- [About / Topics](#about--topics)
 
 ## Why This Project Matters
 
-African energy and commodity systems affect development finance, climate
-resilience, infrastructure, trade, fiscal stability, jobs, private-sector
-investment, and regional risk. Analysts working on these issues often have to
-track fast-moving developments across fragmented reports, press releases,
-datasets, news sources, and partner updates.
+African energy and commodity systems affect electricity access, fuel prices,
+trade, fiscal stability, jobs, infrastructure, climate resilience,
+private-sector investment, public finance, and regional risk. But information
+about those systems is fragmented across news articles, institutional reports,
+PDFs, datasets, and public APIs.
 
-The workbench shows how public data and document intelligence can organize that
-information into decision-ready knowledge products. It supports monitoring,
-evidence synthesis, knowledge management, dashboarding, human review, and
-source-transparent brief generation. The goal is not to replace analysts. The
-goal is to make their evidence trail clearer and their first-pass monitoring
-work faster.
+The problem is not only access to information. The harder problem is turning
+scattered information into structured knowledge:
+
+- What happened?
+- Where did it happen?
+- Which country, sector, or commodity is affected?
+- What evidence supports the signal?
+- Is this a one-off article or part of a larger development?
+- What should an analyst watch next?
+
+This workbench demonstrates how data science, NLP/document intelligence, public
+APIs, and human-review workflows can support evidence-based monitoring and
+knowledge products for development-sector teams.
+
+## Project Snapshot
+
+| Item | Value |
+|---|---|
+| Task | Public-data monitoring and intelligence synthesis |
+| Domain | African energy, commodities, finance, infrastructure, and risk |
+| Interface | Streamlit workbench |
+| Source types | Live/keyless APIs, optional API-key news sources, uploaded documents, CSV datasets, institutional reports |
+| Keyless connectors | GDELT, ReliefWeb, World Bank Indicators, World Bank Documents |
+| Optional connectors | NewsAPI, GNews, Guardian, EIA |
+| Core outputs | Normalized signals, event clusters, evidence rows, Q&A answers, intelligence briefs, exports |
+| Analysis methods | Rule-based classification, signal normalization, deterministic event clustering, dataset profiling, document chunking/search |
+| Storage | Local SQLite database plus file-based source registries and exports |
+| Quality controls | Source status, evidence lists, retrieval diagnostics, confidence flags, fallback warnings, missing-data flags, review queue |
+| Tests | `compileall` plus `unittest` suite |
 
 ## Core Problem
 
-Development and policy teams often receive large volumes of PDFs, reports, CSVs,
-news items, project updates, and partner materials. The challenge is not only
-access to information. The harder task is turning that information into usable
-knowledge:
+Development and policy teams work with large volumes of articles, reports,
+datasets, and institutional documents. A static dashboard is not enough. A
+useful intelligence system needs to help users inspect evidence, ask questions,
+compare signals, cluster related events, and export knowledge products.
 
-- What country or region is affected?
-- Which sector or commodity is involved?
-- Is the item about financing, policy reform, investment, risk, or delay?
-- Which source supports the claim?
-- Is the signal strong enough to include in a brief?
-- What should be reviewed, escalated, or monitored next?
-
-This workbench is built around that workflow.
+This project is built around that operational problem. It treats documents,
+datasets, news, source registries, and monitoring events as connected evidence
+channels rather than isolated files.
 
 ## What The Platform Does
 
-1. Ingests PDFs, text files, Markdown files, CSV datasets, and live/public source
-   results.
-2. Parses documents into page-preserving evidence chunks.
-3. Profiles CSV datasets with rows, columns, numeric ranges, missingness,
-   rankings, correlations, and charts.
-4. Normalizes raw monitoring content into structured signals.
-5. Classifies signals by country, region, sector, commodity, event type, risk
-   flags, tone, source, and relevance.
-6. Clusters related signals into developments.
-7. Supports evidence-backed questions across documents, data summaries, news,
-   and monitoring events.
-8. Generates exportable intelligence briefs and review packages.
-9. Promotes important signals or clusters into persistent local monitoring
-   storage.
-10. Maintains review queues, source status tables, run history, file manifests,
-    and audit records.
+1. Ingests live/public source signals and user-provided documents or datasets.
+2. Normalizes raw source items into a common signal schema.
+3. Classifies country, sector, commodity, event type, tone, risk flags,
+   relevance, and evidence text.
+4. Clusters related signals into analyst-readable developments.
+5. Lets users inspect documents and datasets directly.
+6. Lets users ask questions across documents, data, news, and monitoring
+   outputs.
+7. Generates evidence-backed intelligence briefs.
+8. Exports briefs, signals, clusters, source lists, evidence tables, and review
+   packages.
 
-## Key Features
+## What I Built
 
-- Unified Monitoring Intelligence workbench for African energy, commodities,
-  finance, and risk.
-- Live/keyless source monitoring through public connectors.
-- Optional API-key source monitoring for richer news and data coverage.
-- Document inspection, search, chunk retrieval, and evidence-grounded Q&A.
-- Dataset profiling with charts and computed statistics.
-- Normalized monitoring-signal schema.
-- Event clustering for related developments.
-- Evidence-backed Q&A and intelligence brief generation.
-- Monitoring Supervisor that summarizes current situation, source health, and
-  next actions.
-- Review queue for weak evidence, low confidence, missing sources, duplicate-like
-  items, and high-risk signals.
-- Exportable Markdown, CSV, PDF, evidence JSON, manifest JSON, and ZIP review
-  packages.
-- Source transparency, local SQLite audit storage, and quality flags.
+```mermaid
+flowchart LR
+    A[Public Sources and APIs] --> B[Source Connectors]
+    C[Uploaded Documents] --> D[Document Intelligence]
+    E[CSV / Structured Data] --> F[Dataset Explorer]
 
-## Example Use Cases
+    B --> G[Normalized Signals]
+    D --> H[Evidence Rows]
+    F --> H
 
-- Track recent developments in Nigeria's oil and fuel sector.
-- Monitor copper and cobalt developments in Democratic Republic of the Congo and
-  Zambia.
-- Follow South Africa electricity, power reliability, and investment risk.
-- Compare news signals with structured commodity, finance, or energy datasets.
-- Generate a short Africa energy and commodities monitoring brief.
-- Review high-risk or low-confidence signals before including them in a brief.
-- Support development-sector research, knowledge management, source monitoring,
-  and policy brief preparation.
+    G --> I[Event Clustering]
+    I --> J[Monitoring Intelligence Workbench]
 
-## Tech Stack
+    H --> K[Evidence-Backed Q&A]
+    G --> K
+    I --> K
 
-The stack is intentionally local and auditable:
+    K --> L[Intelligence Briefs]
+    J --> L
+    L --> M[Markdown / CSV / PDF / JSON / ZIP Exports]
+```
 
-- Python 3.10+
-- Streamlit for the dashboard
-- pandas for tabular exploration
-- Plotly for charts
-- SQLite for local document, monitoring, audit, and review storage
-- pypdf for baseline PDF parsing
-- ReportLab for PDF export
-- urllib-based API connectors for public and optional-key data sources
-- Deterministic BM25 plus local hashing-based dense retrieval fallback
-- Optional `sentence-transformers` backend through `DEVFIN_EMBEDDING_MODEL`
-- Optional PyMuPDF and Docling parsing paths when installed
-- `unittest` test suite
-- `.env`-based local configuration for optional API keys
+The platform is organized as a local intelligence workbench:
 
-The code does not require a hosted LLM or cloud vector database. Optional local
-Ollama support can answer follow-up questions from the retrieved evidence pack
-only.
+- **Source connectors** collect public or optional-key monitoring signals.
+- **Document intelligence** parses uploaded reports into source-traceable chunks.
+- **Dataset profiling** turns CSVs into computed summaries, rankings, and chart
+  inputs.
+- **Signal normalization** maps raw source rows into a shared monitoring schema.
+- **Event clustering** groups related signals into developments.
+- **Evidence-backed Q&A** answers questions from retrieved and computed evidence.
+- **Brief generation** produces analyst-style outputs with source trails.
+- **Review queues** keep uncertain, weak, duplicate-like, or high-risk items in a
+  human-validation path.
+
+## Technology Stack
+
+| Layer | Tools |
+|---|---|
+| Application | Python 3.10+, Streamlit |
+| Tables and charts | pandas, Plotly |
+| Local storage | SQLite |
+| Document parsing | pypdf baseline, optional PyMuPDF, optional Docling path in code |
+| PDF export | ReportLab |
+| Public/API access | Python standard-library `urllib` connectors |
+| Retrieval | BM25, local hashing-based dense fallback, optional `sentence-transformers` |
+| Testing | Python `unittest`, `compileall` |
+| Local configuration | `.env` file loaded by `devfinintel/env.py` |
+
+The core app does not require a cloud database, hosted LLM, or hosted vector
+store. Optional local Ollama support can answer follow-up questions from the
+bounded evidence pack.
 
 ## Data And Source Connectors
 
-The monitoring layer is built around connector envelopes and normalized signal
-records. The app can run without any API keys.
+The app can run without API keys. Optional keys expand live coverage.
 
-Keyless/public sources:
+### Keyless / Public Connectors
 
-- GDELT
-- ReliefWeb
-- World Bank Indicators
-- World Bank Documents
+| Source | Purpose |
+|---|---|
+| GDELT | Live global news discovery through a public endpoint |
+| ReliefWeb | Humanitarian and risk-context public source monitoring |
+| World Bank Indicators | Indicator-style public data signals |
+| World Bank Documents | Institutional document discovery signals |
 
-Optional API-key sources:
+### Optional API-Key Connectors
 
-- NewsAPI
-- GNews
-- Guardian
-- EIA
+| Source | Environment Variable |
+|---|---|
+| NewsAPI | `NEWSAPI_API_KEY` |
+| GNews | `GNEWS_API_KEY` |
+| Guardian | `GUARDIAN_API_KEY` |
+| EIA | `EIA_API_KEY` |
 
-The app uses `.env` for optional keys and shows only key status, never key
-values. If keys are missing or live sources fail, the platform can still run
-through keyless public connectors and clearly marked sample fallback data.
+If optional keys are missing, connectors return key-safe status messages. The UI
+shows whether a key is configured, but never prints the key value.
 
-## Architecture
+## Core Files
 
-```text
-Sources
-  |
-  |-- keyless connectors
-  |-- optional-key connectors
-  |-- uploaded PDFs / CSVs / text files
-  |-- official source registry
-  |
-Connectors and parsers
-  |
-Normalized signals + page-preserving evidence chunks + dataset summaries
-  |
-Event clustering + retrieval diagnostics + evidence packs
-  |
-Q&A / briefs / review queue / monitoring supervisor / exports
-```
-
-Module map:
-
-```text
-app/streamlit_app.py              Streamlit intelligence workbench
-devfinintel/connectors/           GDELT, ReliefWeb, World Bank, NewsAPI, GNews, Guardian, EIA
-devfinintel/env.py                .env loading and key-safe source status
-devfinintel/parsing.py            PDF, TXT, Markdown, and CSV parsing
-devfinintel/chunking.py           page-preserving evidence chunks
-devfinintel/store.py              SQLite document, monitoring, audit, and review store
-devfinintel/indexing.py           BM25 + local dense retrieval + transparent reranking
-devfinintel/signals.py            normalized monitoring-signal schema and classifiers
-devfinintel/events.py             event clustering and monitoring-cycle summaries
-devfinintel/monitoring.py         source registry, events, insights, and supervisor logic
-devfinintel/datasets.py           CSV profiling and chart-ready summaries
-devfinintel/workbench.py          unified document/data/news/monitoring Q&A and briefs
-devfinintel/evidence.py           bounded evidence packs for drafting and export
-devfinintel/verification.py       citation, support, schema, and numeric checks
-devfinintel/exporting.py          Markdown, CSV, PDF, JSON, manifest, and ZIP exports
-devfinintel/pipeline.py           end-to-end orchestration
-tests/                            unittest coverage for core workflows
-```
+| Path | Role |
+|---|---|
+| `app/streamlit_app.py` | Main Streamlit workbench with Overview, Documents, Data, News, Ask & Brief, and Review & Sources tabs |
+| `devfinintel/pipeline.py` | End-to-end orchestration for ingestion, retrieval, monitoring, Q&A, brief generation, promotion, and exports |
+| `devfinintel/connectors/` | Public and optional-key source adapters |
+| `devfinintel/env.py` | `.env` loading and key-safe source status reporting |
+| `devfinintel/parsing.py` | PDF, text, Markdown, and CSV parsing |
+| `devfinintel/chunking.py` | Page-preserving evidence chunks |
+| `devfinintel/datasets.py` | CSV profiling, column analysis, rankings, and chart-ready outputs |
+| `devfinintel/signals.py` | Normalized monitoring-signal schema and classification helpers |
+| `devfinintel/events.py` | Deterministic event clustering and monitoring-cycle summaries |
+| `devfinintel/monitoring.py` | Monitoring sources, normalized events, insight cards, and supervisor logic |
+| `devfinintel/workbench.py` | Unified evidence rows, Q&A, and brief-building helpers |
+| `devfinintel/indexing.py` | BM25, local dense retrieval fallback, optional sentence-transformers backend, and diagnostics |
+| `devfinintel/store.py` | SQLite storage for documents, chunks, sessions, outputs, monitoring runs, review queues, and audit events |
+| `devfinintel/exporting.py` | Markdown, CSV, PDF, evidence JSON, manifest JSON, and ZIP export logic |
+| `tests/` | `unittest` coverage for the pipeline and monitoring architecture |
 
 ## Analyst Workflow
 
-Typical monitoring workflow:
+Typical workflow inside the app:
 
 ```text
 Run Monitoring Cycle
@@ -213,18 +231,86 @@ Run Monitoring Cycle
   -> Export outputs
 ```
 
-The review queue is important. It prevents the platform from treating every live
-news item as reliable knowledge. Signals can be flagged for low confidence,
-missing source URLs, weak evidence, high risk, uncertain classification, or
-duplicate-like behavior before they are reused in briefings.
+The workbench is deliberately review-oriented. A live signal is treated as a
+monitoring input, not as a verified fact. The analyst can inspect sources,
+promote important items, review weak evidence, and export source-backed outputs.
 
-## Setup
+## Key Features
 
-Clone the repository after creating it on GitHub:
+- Unified Streamlit workbench for African energy and commodities monitoring.
+- Live/keyless source collection plus optional API-key connectors.
+- Source-status panel with missing-key and fallback warnings.
+- Normalized signal schema for country, region, sector, commodity, event type,
+  tone, risk flags, relevance, and evidence text.
+- Deterministic event clustering for related signals.
+- Document upload, parsing, search, and evidence-grounded Q&A.
+- CSV dataset profiling with computed summaries and visual exploration.
+- Monitoring Supervisor that summarizes source health, risks, watchlist items,
+  and next actions.
+- Human review queue for low-confidence, high-risk, missing-source, weak, or
+  duplicate-like items.
+- Exportable Markdown, CSV, PDF, JSON evidence, manifest, and ZIP packages.
+- Local SQLite audit trail.
+- Optional local Ollama follow-up assistant that receives only the bounded
+  evidence pack.
+
+## Example Use Cases
+
+### Nigeria Oil And Fuel Monitoring
+
+Track recent signals about fuel prices, refining, oil revenue, regulation,
+imports, and inflation risk.
+
+### DRC And Zambia Copper / Cobalt Monitoring
+
+Monitor critical minerals, mining investment, governance issues, project
+developments, export risk, and value-chain signals.
+
+### South Africa Power Risk Monitoring
+
+Follow electricity reliability, power-sector reform, grid investment,
+infrastructure constraints, and transition-finance signals.
+
+### Africa Energy Access And Indicator Context
+
+Upload CSV indicators or use public data signals to compare countries, inspect
+missingness, rank values, and generate chart-ready summaries.
+
+### Weekly Intelligence Brief Generation
+
+Run a monitoring cycle, inspect clusters, ask follow-up questions, and export a
+short evidence-backed brief for a development-sector audience.
+
+## Results And Outputs
+
+The repository includes a working local app and sample data. Outputs are created
+locally when the user runs the dashboard or CLI.
+
+Generated output types:
+
+- normalized signal tables,
+- event cluster tables,
+- evidence rows,
+- document-grounded Q&A answers,
+- dataset profiles,
+- monitoring supervisor situation briefs,
+- intelligence briefs,
+- Markdown reports,
+- CSV exports,
+- PDF reports,
+- evidence JSON,
+- manifest JSON,
+- ZIP review packages.
+
+Local generated outputs are written to `outputs/`, which is ignored by Git.
+
+## How To Run
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/Drey332/africa-energy-commodities-intelligence.git
-cd africa-energy-commodities-intelligence
+git clone https://github.com/Drey332/Energy-Commodities-Intelligence-Workbench.git
+cd Energy-Commodities-Intelligence-Workbench
 ```
 
 Create and activate a virtual environment:
@@ -247,25 +333,23 @@ Create a local environment file:
 cp .env.example .env
 ```
 
-Add optional API keys to `.env` if you have them. The app runs without keys.
-
-Run the dashboard:
+Run the Streamlit app:
 
 ```bash
 streamlit run app/streamlit_app.py
 ```
 
-Generated local state is written to:
+The app stores local state in:
 
 - `storage/workbench.sqlite`
 - `outputs/`
 - `data/sources/downloads/`
 
-These paths are ignored by Git.
+These are ignored by Git.
 
 ## Environment Variables
 
-`.env.example` documents the supported local settings:
+`.env.example`:
 
 ```bash
 NEWSAPI_API_KEY=
@@ -279,103 +363,134 @@ DEVFIN_MAX_ARTICLES=50
 DEVFIN_USE_SAMPLE_DATA=true
 ```
 
-Do not commit `.env`. The repository includes `.env.example` for setup only.
+Notes:
 
-## Running Tests
+- The app runs without API keys.
+- API keys should be stored only in `.env`.
+- `.env` is ignored by Git.
+- The UI reports whether optional keys are configured, but it does not expose
+  secret values.
 
-```bash
-PYTHONPYCACHEPREFIX=/private/tmp/devfin_pycache python3 -m compileall devfinintel app
-PYTHONPYCACHEPREFIX=/private/tmp/devfin_pycache python3 -m unittest discover -s tests
-```
+## Tests
 
-If you are not on a restricted filesystem, the `PYTHONPYCACHEPREFIX` prefix is
-optional:
+Run the checks:
 
 ```bash
 python3 -m compileall devfinintel app
 python3 -m unittest discover -s tests
 ```
 
-## Sample Outputs
+In restricted local environments where Python cannot write bytecode to the
+default cache path, use:
 
-Screenshots are not committed yet. Suggested screenshots to add under
-`docs/screenshots/`:
+```bash
+PYTHONPYCACHEPREFIX=/private/tmp/devfin_pycache python3 -m compileall devfinintel app
+PYTHONPYCACHEPREFIX=/private/tmp/devfin_pycache python3 -m unittest discover -s tests
+```
 
-- Monitoring Intelligence overview
-- Source status panel
-- Normalized signals table
-- Event clusters
-- Monitoring Supervisor brief
-- Dataset explorer
-- Document evidence view
-- Export buttons and review queue
+The current test suite covers:
 
-Exported files include:
+- ingestion, generation, and export,
+- scoped document generation,
+- CSV dataset profiling,
+- evidence-pack and manifest behavior,
+- source registry and coverage utilities,
+- `.env` loading without key exposure,
+- keyless connector failure behavior,
+- signal normalization,
+- event clustering,
+- monitoring run persistence,
+- promoted signal and cluster persistence,
+- review queue behavior.
 
-- `.md` readable brief or dataset profile
-- `.csv` structured records
-- `.pdf` shareable report
-- `.evidence.json` evidence pack, records, metrics, and findings
-- `.manifest.json` source and output manifest
-- `.zip` review package
+## Screenshots
 
-## Why This Demonstrates Data And Knowledge Skills
+Screenshots are not committed yet. Placeholder guidance is in
+`docs/screenshots/README.md`.
 
-This project demonstrates development-sector data and knowledge capabilities in
-a concrete workflow:
+Recommended screenshots to add:
 
-- Development data analysis through CSV profiling, rankings, missingness checks,
-  and chart-ready summaries.
-- Knowledge management through reusable records, source registries, review
-  queues, audit tables, and export packages.
-- Document intelligence through page-level parsing, chunking, retrieval, and
-  source-grounded Q&A.
-- Public-source monitoring through live/keyless connectors, optional API-key
-  connectors, source health status, and fallback behavior.
-- Evidence synthesis through event clustering, monitoring briefs, source trails,
-  and human-review flags.
-- Policy-relevant communication through analyst-style summaries, country and
-  commodity framing, risk flags, recommended actions, and exportable briefs.
-- Responsible AI/data use through local-first processing, key-safe environment
-  handling, abstention behavior, and quality metrics.
+- Monitoring Intelligence overview,
+- source status panel,
+- normalized signals table,
+- event clusters,
+- Monitoring Supervisor situation brief,
+- dataset explorer,
+- document evidence view,
+- review queue and export buttons.
 
-For recruiters in organizations such as UNDP, the World Bank, UNESCO, or other
-development institutions, the project shows the ability to turn messy public
-information into transparent, reviewable knowledge products.
+Before committing screenshots, confirm that they do not show API keys, private
+documents, personal paths, or confidential data.
 
-## Data Ethics And Security
+## Quality, Safety, And Review Design
 
-- `.env` is ignored and should never be committed.
-- Optional API keys are loaded locally and never printed in the UI.
-- The app is designed for public and non-confidential materials.
-- Do not upload confidential, personal, or restricted documents.
-- Live signals are treated as monitoring inputs, not verified facts.
-- Analyst review remains part of the workflow before signals are reused in
-  external products.
+This project does not treat automation as final analysis. It adds review and
+source transparency at several points:
 
-## Limitations
+- source status and missing-key indicators,
+- fallback-data warnings,
+- evidence rows for answers and briefs,
+- retrieval diagnostics,
+- confidence flags,
+- missing-source and weak-evidence review reasons,
+- promoted monitoring items,
+- run history,
+- local audit tables,
+- export manifests.
 
-- Public APIs can have delays, rate limits, missing fields, or coverage gaps.
-- Live results depend on network access and optional API availability.
-- Event clustering is deterministic and not equivalent to expert judgment.
-- Sentiment/tone is a monitoring and risk signal, not a claim that an article is
-  objectively positive or negative.
-- Source quality varies across news, institutional reports, and datasets.
-- The current retrieval gate and verification metrics are transparent heuristics,
-  not calibrated truth scores.
-- The platform supports analyst review. It does not replace analysts.
+The goal is to support analyst judgment, not replace it.
 
-## Roadmap
+## Limitations And Next Steps
 
-- Stronger entity resolution for countries, partners, projects, and companies.
-- Better deduplication across live news, official reports, and promoted events.
-- More polished promoted-event workflows, watchlists, and review analytics.
-- Monitoring run comparison across weeks.
-- Improved country and commodity watchlists.
-- Evaluation harness for Q&A, retrieval, briefs, citation precision, and numeric
-  faithfulness.
-- Additional institutional connectors for AfDB, IEA, EITI, OECD, IATI, and World
-  Bank project data.
-- Improved maps, time-series analytics, and side-by-side official-report versus
-  live-signal comparison.
-- More screenshot examples and public demo data.
+Current limitations:
+
+- Public APIs can be delayed, incomplete, rate-limited, or unavailable.
+- Optional API coverage depends on local keys.
+- Event clustering is deterministic and not expert verification.
+- Rule-based country, sector, commodity, tone, and risk classification is
+  transparent but imperfect.
+- Sentiment/tone is a monitoring and risk signal, not a truth score.
+- The retrieval gate and quality metrics are heuristics, not calibrated
+  factuality models.
+- The app is intended for public and non-confidential data.
+
+Next steps:
+
+- Add stronger entity resolution for countries, companies, donors, projects, and
+  institutions.
+- Improve deduplication across sources.
+- Add richer time-series and map analytics.
+- Expand institutional connectors.
+- Build an evaluation harness for retrieval, Q&A, briefs, citation precision,
+  and numeric faithfulness.
+- Add screenshots and a lightweight public demo dataset.
+- Add a clear open-source license file.
+
+## License And Reuse
+
+No explicit license file is included yet. Treat the code and sample materials as
+portfolio work until a license is added.
+
+Some source registry rows point to public institutional materials. Always check
+the original publisher's reuse terms before redistributing source documents.
+
+## About / Topics
+
+Suggested GitHub topics:
+
+```text
+python
+streamlit
+public-data
+development-data
+document-intelligence
+africa
+energy
+commodities
+monitoring
+news-analysis
+event-clustering
+knowledge-management
+policy-analysis
+sqlite
+```
