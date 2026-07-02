@@ -1,0 +1,9 @@
+[project]
+name = "africa-energy-commodities-intelligence"
+version = "0.1.0"
+description = "Public-data intelligence workbench for African energy, commodities, finance, and risk monitoring."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

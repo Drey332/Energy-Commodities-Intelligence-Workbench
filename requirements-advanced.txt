@@ -1,0 +1,6 @@
+# Optional upgrades for a more production-like local deployment.
+# The code runs without these packages, but uses them when they are installed.
+duckdb>=1.0
+sentence-transformers>=3.0
+PyMuPDF>=1.24
+
